@@ -6,9 +6,9 @@ import requests
 
 API_KEY = "0308501f946b2c57e450c228b4e5693f"
 
-df = pd.read_csv("C:/Users/moham/OneDrive/Desktop/Data Science Project/Movie Recommendation System/app/movies.csv")  # Ensure this file is consistent
+df = pd.read_csv("movies.csv")  # Ensure this file is consistent
 
-tfidf_matrix = joblib.load("C:/Users/moham/OneDrive/Desktop/Data Science Project/Movie Recommendation System/app/tfidf_matrix.pkl")
+tfidf_matrix = joblib.load("tfidf_matrix.pkl")
 
 
 
@@ -27,7 +27,7 @@ def get_cast(movie_id):
                 "original_name": cast["original_name"],
                 "character": cast["character"],
             }
-            for cast in cast_data
+            for cast in cast_data   
         ]
     return []
 

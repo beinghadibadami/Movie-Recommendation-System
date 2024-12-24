@@ -3,7 +3,7 @@ from utils import recommend_movies, get_poster
 import pandas as pd
 
 # Load data
-df = pd.read_csv("C:/Users/moham/OneDrive/Desktop/Data Science Project/Movie Recommendation System/app/movies.csv")
+df = pd.read_csv("movies.csv")
 
 st.title("Movie Recommendation System")
 

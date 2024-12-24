@@ -5,7 +5,7 @@ import pandas as pd
 app = Flask(__name__)
 
 # Load data 
-df = pd.read_csv("C:/Users/moham/OneDrive/Desktop/Data Science Project/Movie Recommendation System/app/movies.csv")
+df = pd.read_csv("movies.csv")
 
 @app.route("/")
 def home():
