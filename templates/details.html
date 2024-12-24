@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ movie.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .movie-container {
+    display: flex;
+    align-items: flex-start;
+    background-color: #111; /* Background color for contrast */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    margin: 0 auto;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.poster img {
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    margin-right: 20px;
+}
+
+.details {
+    flex: 1;
+}
+
+.details h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.details .meta {
+    font-size: 1rem;
+    color: #aaa;
+    margin-bottom: 20px;
+}
+
+.details .overview {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+        .cast-section,
+        .recommendations-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            color: #000;
+        }
+
+        .cast-section h2,
+        .recommendations-section h2 {
+            margin-bottom: 15px;
+        }
+
+        .cast-cards,
+        .recommendation-cards {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+        }
+
+        .card {
+            flex: 0 0 150px;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .card p {
+            margin-top: 5px;
+            font-size: 0.9rem;
+        }
+
+        .recommendation-card {
+            flex: 0 0 180px;
+        }
+
+        .recommendation-card a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+    <!-- Movie Details Section -->
+    <div class="movie-container">
+        <div class="poster">
+            <img src="{{ movie['poster'] }}" alt="{{ movie['title'] }}">
+        </div>
+        <div class="details">
+            <h1>{{ movie['title'] }}</h1>
+            <p class="meta">
+                {{ movie['release_date'] }} | {{ movie['genre'] }} | {{ movie['runtime'] }}
+            </p>
+            <p class="overview">
+                {{ movie['overview'] }}
+            </p>
+        </div>
+    </div>
+    
+    
+    <div class="cast-section">
+        <div class="container">
+            <h2>Top Billed Cast</h2>
+            <div class="cast-cards">
+                {% for actor in cast %}
+                <div class="card">
+                    {% if actor.profile_path %}
+                    <img src="{{ actor.profile_path }}" alt="{{ actor.original_name }}">
+                    {% else %}
+                    <img src="/static/default-profile.png" alt="Default Profile">
+                    {% endif %}
+                    <p><strong>{{ actor.original_name }}</strong></p>
+                    <p>{{ actor.character }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="recommendations-section">
+        <div class="container">
+            <h2>Recommendations For "{{ movie['title'] }}" :</h2>
+
+            <div class="recommendation-cards">
+                {% for movie in recommendations %}
+                <a href="{{ url_for('movie_details', movie_id=movie['id']) }}">
+                    <div class="card">
+                        <img src="{{ movie['poster_path'] }}" alt="{{ movie['title'] }}">
+                        <p>{{ movie['title'] }}</p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
